@@ -1,22 +1,32 @@
 function letterCombinations(input_digit) {
   //Complete the function
-  const L = {'2':"abc",'3':"def",'4':"ghi",'5':"jkl",
-     '6':"mno",'7':"pqrs",'8':"tuv",'9':"wxyz"}
+  if(input_digit == ""){
+        return [];
+    }
+    let table = [ '0','1','abc','def','ghi','jkl','mno','pqrs','tuv','wxyz'];
+     
+    let res =[];
+    let que = [''];
+     
+    while(que.length>0){
+        let str = que[0];
+        que.shift();
+         
+        if(str.length == input_digit.length){
+            res.push(str); 
+        } else{
 
-var letterCombinations = function(input_digit) {
-    let len = input_digit.length, ans = []
-    if (!len) return []
-    const bfs = (pos, str) => {
-        if (pos === len) ans.push(str)
-        else {
-            let letters = L[input_digit[pos]]
-            for (let i = 0; i < letters.length; i++)
-                bfs(pos+1,str+letters[i])
+            let s= Number(input_digit.charAt(str.length));
+            let val = table[s];
+             
+            for(i=0;i<val.length;i++){
+                que.push(str+val.charAt(i));
+            }
         }
     }
-    bfs(0,"")
-    return ans
-};
+     
+    return res;
+     
 }
 
 module.exports = letterCombinations;
